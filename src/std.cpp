@@ -1,7 +1,8 @@
 #include "stm32_base.h"
 
 /* Function for convert float to char with max 3 digit after point */
-void float2char(float number, char *data, int prec) {
+void float2char(float number, char *data, int prec) 
+{
     char s[10];
     int decimals, units;
     int scale = 1;
@@ -53,7 +54,8 @@ void float2char(float number, char *data, int prec) {
 
 /* Function for convert float to 4 digits for semi indicator */
 // TODO work with dot: Think about form variables (bin or dec) and return value or change by link.
-void float2digits(float number, uint8_t *dig, uint8_t precision, uint8_t digits) {
+void float2digits(float number, uint8_t *dig, uint8_t precision, uint8_t digits) 
+{
     int overflow = 0;
     switch (precision) {
         case 0:
@@ -87,11 +89,27 @@ void float2digits(float number, uint8_t *dig, uint8_t precision, uint8_t digits)
 }
 
 /* Function for compare of two strings */
-int strcomp(char *str1, char *str2) {
+int strcomp(char *str1, char *str2) 
+{
     for(int i = 0; (*(str1 + i) != '\0') || (*(str2 + i) != '\0'); i++) {
         if(*(str1 + i) != *(str2 + i)) {
             return 0;
         }
     }
     return 1;
+}
+
+float maxmin(float in, float max, float min) 
+{
+    float out;
+    out = in > max ? max : in;
+    out = in < min ? min : in;
+    return out;
+}
+
+float deadzone(float in, float up, float low) 
+{
+    float out;
+    out = (in < up && in > low) ? 0 : in;
+    return out;
 }
